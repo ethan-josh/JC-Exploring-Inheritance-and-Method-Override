@@ -201,3 +201,122 @@ public class Main{
 **New Output**
 
 <img src="https://github.com/ethan-josh/JC-Exploring-Inheritance-and-Method-Override/blob/main/Images/Ex2-Challenge.png"/>
+
+---
+
+### Exercise 3: Method Overriding: Providing a New Implementation
+
+**Code to run:**
+```
+class Editor {
+    public void openFile() {
+        System.out.println("Opening a generic file.");
+    }
+}
+
+class CodeEditor extends Editor {
+    @Override
+    public void openFile() {
+        System.out.println("Applying syntax highlighting...");
+        super.openFile(); // Call the parent's method
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Editor myEditor = new Editor();
+        CodeEditor myCodeEditor = new CodeEditor();
+        Editor polyEditor = new CodeEditor(); // Polymorphism
+
+        System.out.println("--- Regular Editor ---");
+        myEditor.openFile();
+
+        System.out.println("\n--- Code Editor ---");
+        myCodeEditor.openFile();
+        
+        System.out.println("\n--- Polymorphic Editor ---");
+        polyEditor.openFile();
+    }
+}
+```
+**Predicted Output:**
+```
+--- Regular Editor ---
+Opening a generic file.
+
+--- Code Editor ---
+Applying syntax highlighting...
+Opening a generic file.
+
+--- Polymorphic Editor ---
+Applying syntax highlighting...
+Opening a generic file.
+```
+
+**Actual Output:**
+
+<img src="https://github.com/ethan-josh/JC-Exploring-Inheritance-and-Method-Override/blob/main/Images/Ex3.png"/>
+
+**Explanation:**
+
+The correct output is B).
+
+1. myEditor.openFile(): This is an Editor object, so it calls the standard Editor.openFile() method.
+
+2. myCodeEditor.openFile(): This is a CodeEditor object, so it calls the overridden version of openFile(). This version first prints "Applying syntax highlighting..." and then uses super.openFile() to execute the code from the parent Editor class's method.
+
+3. polyEditor.openFile(): This demonstrates polymorphism. The reference is of type Editor, but the object is of type CodeEditor. At runtime, Java determines that the object's actual type is CodeEditor, so it calls the overridden method from the CodeEditor class.
+
+### Mini Challenge 3
+
+Create a GameCharacter class with a takeDamage(int amount) method that reduces a health variable (e.g., health -= amount). Create a subclass ArmoredCharacter that overrides takeDamage. The new method should cut the damage amount in half before applying it. Use super.takeDamage() to avoid duplicating the health-reduction logic. Test both characters taking 100 damage.
+
+
+**Desired Output**
+```
+Regular character takes 100 damage. New health: 0
+Armored character takes 50 damage. New health: 50
+```
+
+**Code to Add**
+```
+class GameCharacter {
+    protected int health;
+
+    public GameCharacter(int health) {
+        this.health = health;
+    }
+
+    public void takeDamage(int amount) {
+        health -= amount;
+        System.out.println("Regular character takes " + amount + " damage. New health: " + health);
+    }
+}
+
+class ArmoredCharacter extends GameCharacter {
+
+    public ArmoredCharacter(int health) {
+        super(health);
+    }
+
+    @Override
+    public void takeDamage(int amount) {
+        int reducedAmount = amount / 2;
+        System.out.println("Armored character takes " + reducedAmount + " damage. New health: " + health);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        GameCharacter regular = new GameCharacter(100);
+        ArmoredCharacter armored = new ArmoredCharacter(100);
+
+        regular.takeDamage(100);
+        armored.takeDamage(100);
+    }
+}
+```
+
+**New Output**
+
+<img src="https://github.com/ethan-josh/JC-Exploring-Inheritance-and-Method-Override/blob/main/Images/Ex3-Challenge.png"/>
