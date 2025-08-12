@@ -64,11 +64,31 @@ Bicycle says: Ring ring!
 
 **Code to Add**
 ```
+// Existing code
 
+class Bicycle extends Vehicle{
+    public void display(){
+        System.out.println("Bicycle says: Ring ring!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car();
+        // myCar.honk();
+        // myCar.display();
+
+        Bicycle bike = new Bicycle();
+        System.out.print("Bicycle says: ");
+        bike.honk();
+        bike.display();
+
+    }
+}
 ```
 
 **New Output**
 
-<img src="https://github.com/ethan-josh/JC-Exploring-Inheritance-and-Method-Override/blob/main/images/Ex1-Challenge.png"/>
+<img src="https://github.com/ethan-josh/JC-Exploring-Inheritance-and-Method-Override/blob/main/Images/Ex1-Challenge.png"/>
 
 ---
