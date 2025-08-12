@@ -141,40 +141,77 @@ package org.example;
 //     }
 // }
 
-class GameCharacter {
-    protected int health;
+// class GameCharacter {
+//     protected int health;
 
-    public GameCharacter(int health) {
-        this.health = health;
+//     public GameCharacter(int health) {
+//         this.health = health;
+//     }
+
+//     public void takeDamage(int amount) {
+//         health -= amount;
+//         System.out.println("Regular character takes " + amount + " damage. New health: " + health);
+//     }
+// }
+
+// class ArmoredCharacter extends GameCharacter {
+
+//     public ArmoredCharacter(int health) {
+//         super(health);
+//     }
+
+//     @Override
+//     public void takeDamage(int amount) {
+//         int reducedAmount = amount / 2;
+//         System.out.println("Armored character takes " + reducedAmount + " damage. New health: " + health);
+//     }
+// }
+
+// public class Main {
+//     public static void main(String[] args) {
+//         GameCharacter regular = new GameCharacter(100);
+//         ArmoredCharacter armored = new ArmoredCharacter(100);
+
+//         regular.takeDamage(100);
+//         armored.takeDamage(100);
+//     }
+// }
+
+// *******************
+
+// Exercise 4 ********
+// Parent class
+class BankAccount {
+    protected double balance; //I cahanged it to protected
+
+    public BankAccount(double startingBalance) {
+        this.balance = startingBalance;
     }
 
-    public void takeDamage(int amount) {
-        health -= amount;
-        System.out.println("Regular character takes " + amount + " damage. New health: " + health);
+    public double getBalance() {
+        return this.balance;
     }
 }
 
-class ArmoredCharacter extends GameCharacter {
+// Child class
+class CheckingAccount extends BankAccount {
+    private double fee = 5.0;
 
-    public ArmoredCharacter(int health) {
-        super(health);
+    public CheckingAccount(double startingBalance) {
+        super(startingBalance);
     }
 
-    @Override
-    public void takeDamage(int amount) {
-        int reducedAmount = amount / 2;
-        System.out.println("Armored character takes " + reducedAmount + " damage. New health: " + health);
+    public void deductMonthlyFee() {
+        balance = balance - fee;
+        System.out.println("Fee deducted. New balance: " + balance);
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        GameCharacter regular = new GameCharacter(100);
-        ArmoredCharacter armored = new ArmoredCharacter(100);
-
-        regular.takeDamage(100);
-        armored.takeDamage(100);
-    }
+        CheckingAccount myChecking = new CheckingAccount(100.0);
+        myChecking.deductMonthlyFee();
+            }
 }
 
 // *******************

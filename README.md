@@ -320,3 +320,113 @@ public class Main {
 **New Output**
 
 <img src="https://github.com/ethan-josh/JC-Exploring-Inheritance-and-Method-Override/blob/main/Images/Ex3-Challenge.png"/>
+
+---
+
+### Exercise 4: Method Overriding: Providing a New Implementation
+
+**Code to run:**
+```
+// Parent class
+class BankAccount {
+    private double balance;
+
+    public BankAccount(double startingBalance) {
+        this.balance = startingBalance;
+    }
+
+    public double getBalance() {
+        return this.balance;
+    }
+}
+
+// Child class
+class CheckingAccount extends BankAccount {
+    private double fee = 5.0;
+
+    public CheckingAccount(double startingBalance) {
+        super(startingBalance);
+    }
+
+    public void deductMonthlyFee() {
+        balance = balance - fee;
+        System.out.println("Fee deducted. New balance: " + balance);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        CheckingAccount myChecking = new CheckingAccount(100.0);
+        // myChecking.deductMonthlyFee(); // This line cannot be run
+    }
+}
+```
+**Predicted Output:**
+```
+Will not compile
+```
+
+**Actual Output:**
+
+<img src="https://github.com/ethan-josh/JC-Exploring-Inheritance-and-Method-Override/blob/main/Images/Ex4.png"/>
+
+**Explanation:**
+
+The code fails to compile because the deductMonthlyFee method in CheckingAccount tries to directly access the balance variable.
+
+The balance variable in BankAccount is declared as private. A private member is only accessible from within the class that declares it. Even a subclass cannot access the private members of its parent. This is a key feature of encapsulation—it protects the parent's internal state from being modified incorrectly by child classes. The inheritance relationship does not break this fundamental rule.
+
+### Mini Challenge 4
+
+Fix the code snippet above so that it compiles and runs correctly. There are two common solutions:
+
+(Preferred for Encapsulation) Add public setter methods in the parent class.
+
+(Often Used for Subclass Convenience) Change the access modifier of the balance variable in BankAccount from private to protected.
+
+For this challenge, use the protected modifier. Then, in your main method, create a CheckingAccount with $100 and call deductMonthlyFee().
+
+**Desired Output**
+```
+Fee deducted. New balance: 95.0
+```
+
+**Code to Add**
+```
+class BankAccount {
+    protected double balance; //I cahanged it to protected
+
+    public BankAccount(double startingBalance) {
+        this.balance = startingBalance;
+    }
+
+    public double getBalance() {
+        return this.balance;
+    }
+}
+
+// Child class
+class CheckingAccount extends BankAccount {
+    private double fee = 5.0;
+
+    public CheckingAccount(double startingBalance) {
+        super(startingBalance);
+    }
+
+    public void deductMonthlyFee() {
+        balance = balance - fee;
+        System.out.println("Fee deducted. New balance: " + balance);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        CheckingAccount myChecking = new CheckingAccount(100.0);
+        myChecking.deductMonthlyFee();
+            }
+}
+```
+
+**New Output**
+
+<img src="https://github.com/ethan-josh/JC-Exploring-Inheritance-and-Method-Override/blob/main/Images/Ex4-Challenge.png"/>
